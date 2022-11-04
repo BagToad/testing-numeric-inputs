@@ -1,0 +1,16 @@
+name: Called Workflow
+
+on:
+  workflow_call:
+    inputs:
+      passthrough_input_number:
+        type: number
+        description: A generic number input
+
+jobs:
+  called-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print passthrough input
+        run: |
+          echo "${{ inputs.passthrough_input_number }}"
