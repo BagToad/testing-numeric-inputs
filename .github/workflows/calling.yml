@@ -1,0 +1,20 @@
+name: Test Number Inputs
+on:
+  workflow_dispatch:
+    inputs:
+      max_parallel:
+        type: number
+        description: 'Maximum number of parallel deployments.'
+        default: 32
+
+
+jobs:
+  call_workflow:
+    strategy:
+      max-parallel: ${{ FromJSON(inputs.max_parallel) }}      
+      matrix: 
+        num: [1,2]
+    name: Call workflow with numeric input.
+    uses: ./.github/workflows/callable.yml
+    with:
+      passthrough_input_number: ${{ FromJSON(inputs.max_parallel) }}
